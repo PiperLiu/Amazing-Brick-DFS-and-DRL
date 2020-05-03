@@ -145,7 +145,25 @@ class GameState:
             pygame.display.update()
             FPSCLOCK.tick(self.fps)
         else:
-            observation = 0
+            playerXc, playerYc = self.s_c(self.player).x_c, self.player.y_c
+            pipe_Xc_Yc = []
+            block_Xc_Yc = []
+            for ind, pipe in enumerate(self.pipes):
+                if pipe.scored:
+                    continue
+                if len(pipe_Xc_Yc) == 4:
+                    break
+                if ind % 2 == 0:
+                    pipe_Xc, pipe_Yc = self.s_c(pipe).x_c + pipe.width, pipe.y_c
+                else:
+                    pipe_Xc, pipe_Yc = self.s_c(pipe).x_c, pipe.y_c
+                pipe_Xc_Yc.extend([pipe_Xc, pipe_Yc])
+            for block in self.blocks[:4]:
+                block_Xc, block_Yc = self.s_c(block).x_c, block.y_c
+                block_Xc_Yc.extend([block_Xc, block_Yc])
+            observation = [playerXc, playerYc]
+            observation.extend(pipe_Xc_Yc)
+            observation.extend(block_Xc_Yc)
 
         return observation, reward, done
 
