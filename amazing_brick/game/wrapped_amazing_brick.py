@@ -5,9 +5,6 @@ import pygame
 from .amazing_brick_utils import CONST, load, Box, Player, Block, pipes
 import pygame.surfarray as surfarray
 from pygame.locals import *
-from itertools import cycle
-
-FPS = 30
 
 pygame.init()
 FPSCLOCK = pygame.time.Clock()
@@ -41,7 +38,7 @@ class ScreenCamera:
             pass
 
 class GameState:
-    def __init__(self, ifRender=True, fps=FPS):
+    def __init__(self, ifRender=True, fps=30):
         self.score = 0
         self.player = Player()
         self.pipes = []
@@ -51,10 +48,16 @@ class GameState:
         self.color_ind = 0
 
         self._getRandomPipe(init=True)
-
         self.fps = fps
 
     def frame_step(self, action):
+        if self.ifRender and self.fps <= 60:
+            if action == 0:
+                print('do nothing')
+            elif action == 1:
+                print('left')
+            elif action == 2:
+                print('right')
         pygame.event.pump()
 
         reward = 0.1
@@ -107,25 +110,25 @@ class GameState:
         
         # check if crash here
         if self.s_c(self.player).y_c + self.player.height >= self.s_c.height:
-            self.__init__(ifRender=self.ifRender)
+            self.__init__(ifRender=self.ifRender, fps=self.fps)
             done = True
             reward = -1
         if not done:
             if self.player.x_c <= self.s_c.x or \
                     self.player.x_c >= self.s_c.width - self.player.width:
-                self.__init__(ifRender=self.ifRender)
+                self.__init__(ifRender=self.ifRender, fps=self.fps)
                 done = True
                 reward = -1
         if not done:
             for pipe in self.pipes:
                 if self.player.check_crash(pipe):
-                    self.__init__(ifRender=self.ifRender)
+                    self.__init__(ifRender=self.ifRender, fps=self.fps)
                     done = True
                     reward = -1
         if not done:
             for block in self.blocks:
                 if self.player.check_crash(block):
-                    self.__init__(ifRender=self.ifRender)
+                    self.__init__(ifRender=self.ifRender, fps=self.fps)
                     done = True
                     reward = -1
 

@@ -12,7 +12,6 @@ import tianshou as ts
 import torch, numpy as np
 from torch import nn
 import torch.nn.functional as F
-import cv2
 
 train_env = AmazingBrickEnv(fps=1000)
 test_env = AmazingBrickEnv(fps=1000)

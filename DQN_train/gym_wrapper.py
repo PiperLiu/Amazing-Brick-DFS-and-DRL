@@ -8,17 +8,19 @@ from amazing_brick.game.wrapped_amazing_brick import \
         GameState, SCREEN, BACKGROUND_COLOR, pygame, FPSCLOCK
 
 import gym
-import cv2
 import numpy as np
 
 class AmazingBrickEnv(gym.Env):
     def __init__(self, fps=200):
+        import cv2
         self._step = 0
         self.max_score = 200
-        self.g_s = GameState(fps=fps)
+        self.fps = fps
+        self.g_s = GameState(fps=self.fps)
         self.action_space = gym.spaces.Discrete(3)
     
     def step(self, action):
+        import cv2
         done_ = False
         observation, reward, done = self.g_s.frame_step(0)
         x_t1, done_ = obs2x_t(observation, done, done_)
@@ -33,7 +35,7 @@ class AmazingBrickEnv(gym.Env):
         return s_t, reward, done_, {}
     
     def reset(self):
-        self.g_s.__init__()
+        self.g_s.__init__(fps=self.fps)
         self._step = 0
         done_ = False
         observation, reward, done = self.g_s.frame_step(0)
@@ -48,6 +50,7 @@ class AmazingBrickEnv(gym.Env):
     
 
 def obs2x_t(obs, done, done_):
+    import cv2
     x_t = cv2.cvtColor(cv2.resize(obs, (100, 100)), cv2.COLOR_BGR2GRAY)
     # ret, x_t = cv2.threshold(x_t, 1, 255, cv2.THRESH_BINARY)
     if done:
@@ -63,8 +66,16 @@ class AmazingBrickEnv2(gym.Env):
         self.max_score = 200
         self.g_s = GameState(ifRender=False)
         self.action_space = gym.spaces.Discrete(3)
+        self.ifRender = False
     
     def step(self, action):
+        if self.ifRender:
+            if action == 0:
+                print('do nothing')
+            elif action == 1:
+                print('left')
+            elif action == 2:
+                print('right')
         done_ = False
         observation, reward, done = self.g_s.frame_step(0)
         if done:
@@ -91,6 +102,7 @@ class AmazingBrickEnv2(gym.Env):
         return np.asarray(observation)
     
     def render(self, mode='human'):
+        self.ifRender = True
         SCREEN.fill(BACKGROUND_COLOR)
         for pipe in self.g_s.pipes:
             self.g_s.s_c(pipe)
@@ -114,8 +126,16 @@ class AmazingBrickEnv3(gym.Env):
         self.g_s = GameState(ifRender=False)
         self.action_space = gym.spaces.Discrete(3)
         self.slay_okey = slay_okey
+        self.ifRender = False
     
     def step(self, action):
+        if self.ifRender:
+            if action == 0:
+                print('do nothing')
+            elif action == 1:
+                print('left')
+            elif action == 2:
+                print('right')
         obs = []
         observation, reward, done = self.g_s.frame_step(action)
         for ind, o in enumerate(observation):
@@ -171,6 +191,7 @@ class AmazingBrickEnv3(gym.Env):
         return np.asarray(obs)
     
     def render(self, mode='human'):
+        self.ifRender = True
         SCREEN.fill(BACKGROUND_COLOR)
         for pipe in self.g_s.pipes:
             self.g_s.s_c(pipe)

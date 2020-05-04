@@ -18,10 +18,8 @@ while True:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFTBRACKET:
                 action = ACTIONS[1]
-                print('left')
             if event.key == pygame.K_RIGHTBRACKET:
                 action = ACTIONS[2]
-                print('right')
 
     game_state.frame_step(action)
 pygame.quit()
