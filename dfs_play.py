@@ -84,35 +84,35 @@ def move_forward(state, action):
             new_state['velX'] += game_state.player.dragForce
         new_state['velY'] += game_state.player.gravity
         if new_state['velX'] > game_state.player.velMaxX:
-            new_state['velX'] = 10
+            new_state['velX'] = game_state.player.velMaxX
         if new_state['velX'] < - game_state.player.velMaxX:
-            new_state['velX'] = - 10
-        if new_state['velY'] > game_state.player.velMaxX:
-            new_state['velY'] = 10
-        if new_state['velY'] < - game_state.player.velMaxX:
-            new_state['velY'] = - 10
+            new_state['velX'] = - game_state.player.velMaxX
+        if new_state['velY'] > game_state.player.velMaxY:
+            new_state['velY'] = game_state.player.velMaxY
+        if new_state['velY'] < - game_state.player.velMaxY:
+            new_state['velY'] = - game_state.player.velMaxY
     elif action == 1:
         new_state['velX'] -= game_state.player.AccX
         new_state['velY'] -= (game_state.player.AccY - game_state.player.gravity)
         if new_state['velX'] > game_state.player.velMaxX:
-            new_state['velX'] = 10
+            new_state['velX'] = game_state.player.velMaxX
         if new_state['velX'] < - game_state.player.velMaxX:
-            new_state['velX'] = - 10
-        if new_state['velY'] > game_state.player.velMaxX:
-            new_state['velY'] = 10
-        if new_state['velY'] < - game_state.player.velMaxX:
-            new_state['velY'] = - 10
+            new_state['velX'] = - game_state.player.velMaxX
+        if new_state['velY'] > game_state.player.velMaxY:
+            new_state['velY'] = game_state.player.velMaxY
+        if new_state['velY'] < - game_state.player.velMaxY:
+            new_state['velY'] = - game_state.player.velMaxY
     elif action == 2:
         new_state['velX'] += game_state.player.AccX
         new_state['velY'] -= (game_state.player.AccY - game_state.player.gravity)
         if new_state['velX'] > game_state.player.velMaxX:
-            new_state['velX'] = 10
+            new_state['velX'] = game_state.player.velMaxX
         if new_state['velX'] < - game_state.player.velMaxX:
-            new_state['velX'] = - 10
-        if new_state['velY'] > game_state.player.velMaxX:
-            new_state['velY'] = 10
-        if new_state['velY'] < - game_state.player.velMaxX:
-            new_state['velY'] = - 10
+            new_state['velX'] = - game_state.player.velMaxX
+        if new_state['velY'] > game_state.player.velMaxY:
+            new_state['velY'] = game_state.player.velMaxY
+        if new_state['velY'] < - game_state.player.velMaxY:
+            new_state['velY'] = - game_state.player.velMaxY
     
     new_state['x'] += new_state['velX']
     new_state['y'] += new_state['velY']

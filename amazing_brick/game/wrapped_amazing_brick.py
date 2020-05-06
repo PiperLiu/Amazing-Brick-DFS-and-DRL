@@ -79,7 +79,7 @@ class GameState:
             if ind % 2 == 1:
                 continue
             self.s_c(pipe)
-            if pipe.y_c <= playerMidPos <= pipe.y_c + pipe.height:
+            if playerMidPos <= pipe.y_c + pipe.height:
                 if not pipe.scored:
                     self.score += 1
                     pipe.scored = True

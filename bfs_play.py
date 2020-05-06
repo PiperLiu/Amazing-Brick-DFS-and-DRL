@@ -19,8 +19,8 @@ args = parser.parse_args()
 Node = namedtuple("Node", ['sta' , 'act', 'father'])
 
 game_state = GameState(True)
-
-a = Node(1,2,3)
+game_state.player.velMaxY = 20
+game_state.player.AccY = 5
 
 ACTIONS = (0, 1, 2)
 
@@ -42,7 +42,7 @@ def bfs_forward(root_state, show=False):
                 pygame.display.update()
             break
         for action in ACTIONS[1:]:
-            father_state = move_forward(father_state, ACTIONS[0])
+            # father_state = move_forward(father_state, ACTIONS[0])
             new_state = move_forward(father_state, action)
             if check_crash(new_state):
                 if show:
@@ -66,7 +66,7 @@ def check_for_score(state):
         if ind % 2 == 1:
             continue
         game_state.s_c(pipe)
-        if pipe.y_c <= playerMidPos <= pipe.y_c + pipe.height:
+        if playerMidPos <= pipe.y_c + pipe.height:
             if not pipe.scored:
                 return True
     return False
@@ -80,35 +80,35 @@ def move_forward(state, action):
             new_state['velX'] += game_state.player.dragForce
         new_state['velY'] += game_state.player.gravity
         if new_state['velX'] > game_state.player.velMaxX:
-            new_state['velX'] = 10
+            new_state['velX'] = game_state.player.velMaxX
         if new_state['velX'] < - game_state.player.velMaxX:
-            new_state['velX'] = - 10
-        if new_state['velY'] > game_state.player.velMaxX:
-            new_state['velY'] = 10
-        if new_state['velY'] < - game_state.player.velMaxX:
-            new_state['velY'] = - 10
+            new_state['velX'] = - game_state.player.velMaxX
+        if new_state['velY'] > game_state.player.velMaxY:
+            new_state['velY'] = game_state.player.velMaxY
+        if new_state['velY'] < - game_state.player.velMaxY:
+            new_state['velY'] = - game_state.player.velMaxY
     elif action == 1:
         new_state['velX'] -= game_state.player.AccX
         new_state['velY'] -= (game_state.player.AccY - game_state.player.gravity)
         if new_state['velX'] > game_state.player.velMaxX:
-            new_state['velX'] = 10
+            new_state['velX'] = game_state.player.velMaxX
         if new_state['velX'] < - game_state.player.velMaxX:
-            new_state['velX'] = - 10
-        if new_state['velY'] > game_state.player.velMaxX:
-            new_state['velY'] = 10
-        if new_state['velY'] < - game_state.player.velMaxX:
-            new_state['velY'] = - 10
+            new_state['velX'] = - game_state.player.velMaxX
+        if new_state['velY'] > game_state.player.velMaxY:
+            new_state['velY'] = game_state.player.velMaxY
+        if new_state['velY'] < - game_state.player.velMaxY:
+            new_state['velY'] = - game_state.player.velMaxY
     elif action == 2:
         new_state['velX'] += game_state.player.AccX
         new_state['velY'] -= (game_state.player.AccY - game_state.player.gravity)
         if new_state['velX'] > game_state.player.velMaxX:
-            new_state['velX'] = 10
+            new_state['velX'] = game_state.player.velMaxX
         if new_state['velX'] < - game_state.player.velMaxX:
-            new_state['velX'] = - 10
-        if new_state['velY'] > game_state.player.velMaxX:
-            new_state['velY'] = 10
-        if new_state['velY'] < - game_state.player.velMaxX:
-            new_state['velY'] = - 10
+            new_state['velX'] = - game_state.player.velMaxX
+        if new_state['velY'] > game_state.player.velMaxY:
+            new_state['velY'] = game_state.player.velMaxY
+        if new_state['velY'] < - game_state.player.velMaxY:
+            new_state['velY'] = - game_state.player.velMaxY
     
     new_state['x'] += new_state['velX']
     new_state['y'] += new_state['velY']
@@ -146,6 +146,8 @@ def check_crash(state):
     return False
 
 while True:
+    game_state.player.velMaxY = 20
+    game_state.player.AccY = 5
     game_state.frame_step(ACTIONS[0])
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -157,6 +159,8 @@ while True:
     root_state['velX'] = game_state.player.velX
     root_state['velY'] = game_state.player.velY
 
+    game_state.player.velMaxY = 20
+    game_state.player.AccY = 5
     final_node = bfs_forward(root_state, args.display)
     if args.display:
         time.sleep(0.2)
@@ -168,7 +172,9 @@ while True:
             break
         final_node = node
     for i in range(-1, -len(actions)-1, -1):
-        game_state.frame_step(ACTIONS[0])
+        # game_state.frame_step(ACTIONS[0])
         game_state.frame_step(actions[i])
-    
+        game_state.player.velMaxY = 20
+        game_state.player.AccY = 5
+
 pygame.quit()
