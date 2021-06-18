@@ -51,7 +51,7 @@ collect_per_step = 50
 
 policy = ts.policy.DQNPolicy(net, optim,
     discount_factor=0.9, estimation_step=estimation_step,
-    use_target_network=True, target_update_freq=320)
+    target_update_freq=320)
 
 train_collector = ts.data.Collector(policy, train_env, ts.data.ReplayBuffer(size=2000))
 test_collector = ts.data.Collector(policy, test_env)
@@ -85,8 +85,8 @@ if __name__ == '__main__':
             max_epoch=max_epoch, step_per_epoch=step_per_epoch,
             collect_per_step=collect_per_step,
             episode_per_test=30, batch_size=64,
-            train_fn=lambda e: policy.set_eps(0.1 * (max_epoch - e) / round),
-            test_fn=lambda e: policy.set_eps(0.05 * (max_epoch - e) / round), writer=None)
+            train_fn=lambda e1, e2: policy.set_eps(0.1 * (max_epoch - e1) / round),
+            test_fn=lambda e1, e2: policy.set_eps(0.05 * (max_epoch - e1) / round), writer=None)
         print(f'Finished training! Use {result["duration"]}')
 
         torch.save(policy.state_dict(), dqn2_path + 'dqn2.pth')

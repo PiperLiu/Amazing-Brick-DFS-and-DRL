@@ -36,6 +36,10 @@ DQN_train 中的内容需要额外安装的库有：
 - tianshou，安装指南：[https://pypi.org/project/tianshou/](https://pypi.org/project/tianshou/) （直接 `pip install tianshou` 就可以）
 - 可选：cv2 （openCV），如果不使用 `dqn_train.py` （强化学习算法一），可以不安装 cv2 。
 
+```bash
+pip install -r requirements.txt
+```
+
 ## How to play & DFS/BFS automatic control
 ### 手动操作
 在游戏中，玩家控制一个小方块，按 "\[" 键给其一个左上的力，按 "\]" 键给其一个右上的力，什么都不按，小方块会由于重力原因下落。
