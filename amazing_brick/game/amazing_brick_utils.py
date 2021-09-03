@@ -110,13 +110,13 @@ class Player(Box):
     
     def _checkMax(self):
         if self.velX > self.velMaxX:
-            self.velX = 10
+            self.velX = self.velMaxX
         if self.velX < - self.velMaxX:
-            self.velX = - 10
+            self.velX = - self.velMaxX
         if self.velY > self.velMaxY:
-            self.velY = 10
+            self.velY = self.velMaxY
         if self.velY < - self.velMaxY:
-            self.velY = - 10
+            self.velY = - self.velMaxY
     
     def check_crash(self, obj: Box):
         x0, y0, x0_, y0_ = self.box()
