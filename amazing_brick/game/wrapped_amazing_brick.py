@@ -6,6 +6,9 @@ from .amazing_brick_utils import CONST, load, Box, Player, Block, pipes
 import pygame.surfarray as surfarray
 from pygame.locals import *
 
+import os
+os.environ["SDL_VIDEODRIVER"] = "dummy"
+
 pygame.init()
 FPSCLOCK = pygame.time.Clock()
 SCREEN = pygame.display.set_mode((CONST['SCREEN_WIDTH'], CONST['SCREEN_HEIGHT']))

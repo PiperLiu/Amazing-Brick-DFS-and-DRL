@@ -56,7 +56,7 @@ policy = ts.policy.DQNPolicy(net, optim,
 train_collector = ts.data.Collector(policy, train_env, ts.data.ReplayBuffer(size=2000))
 test_collector = ts.data.Collector(policy, test_env)
 
-dqn3_path = osp.join(path, 'DQN_train/dqn_weights/')
+dqn3_path = osp.join(path, 'DQN_train/dqn_weights_20210903/')
 
 if __name__ == '__main__':
 
