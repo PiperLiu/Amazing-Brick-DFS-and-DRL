@@ -5,5 +5,5 @@ gym==0.17.1
 seaborn==0.10.1
 torch==1.4.0
 opencv_python==4.2.0.32
-numpy==1.19.2
+numpy==1.22.0
 tianshou==0.3.0.post1
