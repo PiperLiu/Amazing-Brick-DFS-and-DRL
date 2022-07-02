@@ -166,15 +166,14 @@ while True:
         time.sleep(0.2)
     actions = []
     while True:
-        actions.append(final_node.act)
+        if final_node.father is not None:
+            actions.append(final_node.act)
         node = final_node.father
         if node is None:
             break
         final_node = node
-    for i in range(-1, -len(actions)-1, -1):
+    for act in actions[::-1]:
         # game_state.frame_step(ACTIONS[0])
-        game_state.frame_step(actions[i])
-        game_state.player.velMaxY = 20
-        game_state.player.AccY = 5
+        game_state.frame_step(act)
 
 pygame.quit()
