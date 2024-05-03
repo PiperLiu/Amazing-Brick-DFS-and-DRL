@@ -1,6 +1,6 @@
 pygame==1.9.6
 matplotlib==2.2.2
-tqdm==4.59.0
+tqdm==4.66.3
 gym==0.17.1
 seaborn==0.10.1
 torch==1.4.0
